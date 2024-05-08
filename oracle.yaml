@@ -1,0 +1,6 @@
+---
+home_region: eu-frankfurt-1
+region: eu-frankfurt-1
+tenancy_id: <tenancy_id>
+# Compartment
+compartment_id: <compartment_id>

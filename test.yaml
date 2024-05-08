@@ -1,0 +1,46 @@
+---
+# Compartment
+compartment_name: "oracle-test"
+compartment_description: "Oracle tests compartment"
+# IAM
+create_iam_resources: true
+create_iam_worker_policy: "always"
+create_iam_autoscaler_policy: "always"
+# Cluster
+## Main information
+cluster_name: "naviteq-oracle-test"
+cluster_type: "enhanced"
+kubernetes_version: "v1.28.2"
+# Workers
+worker_pools:
+  test:
+    size: 1
+    shape: "VM.Standard.E4.Flex"
+    autoscale: true
+    min_size: 1
+    max_size: 10
+worker_pool_mode: "node-pool"
+worker_shape:
+  shape: "VM.Standard.E4.Flex"
+  ocpus: 2
+  memory: 16
+  boot_volume_size: 50
+## Networking
+control_plane_is_public: true
+load_balancers: "both"
+preferred_load_balancer: "public"
+control_plane_allowed_cidrs: ["0.0.0.0/0"]
+# Other
+output_detail: true
+# Disabled components
+create_bastion: false
+create_vcn: false
+create_operator: false
+# VCN
+vcn_name: "oracle-test"
+create_drg: false
+create_internet_gateway: true
+lockdown_default_seclist: true
+create_nat_gateway: true
+create_service_gateway: false
+vcn_cidrs: ["10.10.0.0/16"]

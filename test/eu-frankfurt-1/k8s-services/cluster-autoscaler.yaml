@@ -1,0 +1,19 @@
+# https://github.com/kubernetes/autoscaler/blob/master/charts/cluster-autoscaler/values.yaml
+---
+cloudProvider: oci
+extraEnv:
+  OCI_USE_INSTANCE_PRINCIPAL: "true"
+  OKE_USE_INSTANCE_PRINCIPAL: "true"
+  OCI_SDK_APPEND_USER_AGENT: oci-oke-cluster-autoscaler
+extraArgs:
+  scale-down-delay-after-add: 10m
+  scale-down-unneeded-time: 10m
+  unremovable-node-recheck-timeout: 5m
+  balance-similar-node-groups: "true"
+  balancing-ignore-label: "displayName"
+  balancing-ignore-label: "hostname"
+  balancing-ignore-label: "internal_addr"
+  balancing-ignore-label: "oci.oraclecloud.com/fault-domain"
+  %{~ for pool, info in nodes ~}
+  nodes: "${info.min_size}:${info.max_size}:${info.id}"
+  %{~ endfor ~}

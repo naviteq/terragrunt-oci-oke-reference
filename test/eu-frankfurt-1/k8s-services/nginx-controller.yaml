@@ -1,0 +1,15 @@
+# https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
+---
+controller:
+  ingressClassResource:
+    default: true
+    name: nginx
+  service:
+    enabled: true
+    externalTrafficPolicy: Local
+    annotations:
+      oci.oraclecloud.com/security-rule-management-mode: "NSG"
+      oci.oraclecloud.com/load-balancer-type: nlb
+      oci-network-load-balancer.oraclecloud.com/oci-network-security-groups: ${nsg}
+    loadBalancerSourceRanges:
+      - 1.1.1.1/32
