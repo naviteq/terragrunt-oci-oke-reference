@@ -59,4 +59,9 @@ generate "versions" {
   contents  = ""
 }
 # Inputs
-inputs = local.oracle_inputs
+inputs = merge(
+  # Try to add inputs from <environment>.yaml file. failback to emptry dict
+  try(yamldecode(file(find_in_parent_folders("${local.environment}.yaml"))), {}),
+  local.oracle_inputs
+)
+
